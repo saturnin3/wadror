@@ -1,5 +1,8 @@
 class Brewery < ActiveRecord::Base
-  has_many :beers
+ include RatingAverage
+ 
+  has_many :beers, dependent: :destroy
+  has_many :ratings, through: :beers
 
   def print_report
     puts self.name
@@ -10,4 +13,9 @@ class Brewery < ActiveRecord::Base
     self.year = 2016
     puts "changed year to #{year}"
   end
+#  def average_rating
+#    total = self.ratings.inject(0) {|sum, n| sum + n.score}
+#    return total / self.ratings.count
+#  end
+
 end
