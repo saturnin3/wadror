@@ -42,4 +42,8 @@ Rails.application.configure do
   #web console access
   config.web_console.whitelisted_ips = %w( 127.0.0.1 192.168.0.0/16 )
 
+  #better_errors
+  BetterErrors::Middleware.allow_ip! ENV['TRUSTED_IP']if ENV['TRUSTED_IP']  
+
+
 end
