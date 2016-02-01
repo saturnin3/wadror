@@ -10,10 +10,14 @@
   <div class="navibar">
     <%= link_to 'breweries', breweries_path %>
     <%= link_to 'beers', beers_path %>
-    <%= link_to 'ratings', ratings_path %>
+    <%= link_to 'ratings', ratings_path %> |
+    <%= link_to 'signin', new_user_path %>
   </div>
 
   <%= yield %>
+<% if current_user %>
+  <p> <%= current_user.username %> signed in </p>
+<% end %>
 
 </body>
 </html>
