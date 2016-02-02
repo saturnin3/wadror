@@ -5,6 +5,12 @@
   Has made <%=pluralize(@user.ratings.count, 'rating') %>, average <%= @user.average_rating %> 
 </p>
 
+<p> Member of
+  <% @user.beer_clubs.each do |club| %>
+    <%= link_to club.name, beer_club_path(club.id) %>
+  <% end %>
+</p>
+
 <strong>ratings</strong>
 <ul>
   <% Rating.where(user_id:@user.id).each do |rating| %>

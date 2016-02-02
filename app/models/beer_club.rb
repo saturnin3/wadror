@@ -1,5 +1,6 @@
 class BeerClub < ActiveRecord::Base
-  has_many :users, through: :memberships
+  has_many :memberships
+  has_many :members, through: :memberships, source: :user
 
   def index
     @beer_clubs = BeerClub.all
