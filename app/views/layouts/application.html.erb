@@ -14,6 +14,7 @@
     <% if current_user %>
       <%= link_to current_user.username, user_path(session[:user_id]) %> 
       <%= link_to 'rate a beer', new_rating_path %>
+      <%= link_to 'join a club', join_club_path %>
       <%= link_to 'signout', session_path(session[:user_id]), method: :delete, data: { confirm: 'Are you sure?' } %>
     <% else %>
       <%= link_to 'signin', signin_path %>
