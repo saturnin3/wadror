@@ -25,12 +25,12 @@ class MembershipsController < ApplicationController
   # POST /memberships.json
   def create
     @membership = Membership.new(membership_params)
-
+    
     respond_to do |format|
       if @membership.save
+        current_user.memberships << @membership
         format.html { redirect_to @membership, notice: 'Membership was successfully created.' }
         format.json { render :show, status: :created, location: @membership }
-        current_user.memberships << @membership
       else
         format.html { render :new }
         format.json { render json: @membership.errors, status: :unprocessable_entity }
@@ -73,3 +73,4 @@ class MembershipsController < ApplicationController
       params.require(:membership).permit(:beer_club_id, :user_id)
     end
 end
+
