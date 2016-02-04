@@ -21,6 +21,12 @@ class BeerClubsController < ApplicationController
   def edit
   end
 
+  def free
+    free = []
+
+  
+# end
+    
 
   # POST /beer_clubs
   # POST /beer_clubs.json

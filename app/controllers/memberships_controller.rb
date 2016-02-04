@@ -15,6 +15,7 @@ class MembershipsController < ApplicationController
   # GET /memberships/new
   def new
     @membership = Membership.new
+    @freememberships = BeerClub.free(current_user.id)
   end
 
   # GET /memberships/1/edit
@@ -25,9 +26,10 @@ class MembershipsController < ApplicationController
   # POST /memberships.json
   def create
     @membership = Membership.new(membership_params)
-    
-    respond_to do |format|
-      if @membership.save
+
+      respond_to do |format|
+       # if not Membership.where(beer_club_id: params[:beer_club_id]).pluck(:user_id).include? current_user.id and
+        if @membership.save
         current_user.memberships << @membership
         format.html { redirect_to @membership, notice: 'Membership was successfully created.' }
         format.json { render :show, status: :created, location: @membership }
@@ -73,4 +75,3 @@ class MembershipsController < ApplicationController
       params.require(:membership).permit(:beer_club_id, :user_id)
     end
 end
-

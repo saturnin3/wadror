@@ -10,4 +10,15 @@ class BeerClub < ActiveRecord::Base
     "#{self.name} #{self.city}"
   end
 
+  def self.free(user_id)
+    f = []
+    BeerClub.all.each do |bc|
+      if not bc.memberships.pluck(:user_id).include? user_id
+        f << bc
+      end
+    end
+    return f
+  end
+
+
 end
