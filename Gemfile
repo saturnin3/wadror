@@ -36,6 +36,7 @@ group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem "better_errors"
+  gem 'rspec-rails', '~> 3.0'
  #....
 end
 
@@ -57,6 +58,8 @@ end
 
 ruby '2.3.0'
 
- # group :development, :test do
-
- # end
+group :test do
+  gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'launchy'
+end

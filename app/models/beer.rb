@@ -2,6 +2,7 @@ class Beer < ActiveRecord::Base
   include RatingAverage
 
   validates :name, presence: true
+  validates :style, presence: true
 
   belongs_to :brewery
   has_many :ratings, dependent: :destroy
@@ -17,7 +18,7 @@ class Beer < ActiveRecord::Base
  #   total = self.ratings.inject(0){ |sum, n| sum + n.score }
    # total = self.ratings.map{ |r| r.score}.inject{ |sum, n| sum + n}
 #    return total / self.ratings.count
-#  end 
+#  end
   def to_s
     i = self.brewery_id
     p = Brewery.find i
