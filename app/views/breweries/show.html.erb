@@ -26,5 +26,5 @@
 <% end %>
 <br>
 <!-- <%= link_to 'List of beers', beers_path %> | -->
-<%= link_to 'Edit', edit_brewery_path(@brewery) %> 
+<%= link_to('Edit', edit_brewery_path(@brewery)) if current_user %> 
 <!-- | <%= link_to 'Back', breweries_path %> -->

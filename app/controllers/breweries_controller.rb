@@ -1,6 +1,7 @@
 class BreweriesController < ApplicationController
   before_action :set_brewery, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate, only: [:destroy]
+  #before_action :authenticate, only: [:destroy]
+  before_action :ensure_that_signed_in, except: [:index, :show]
 
   # GET /breweries
   # GET /breweries.json
@@ -19,7 +20,7 @@ class BreweriesController < ApplicationController
     @brewery = Brewery.new
   end
 
-  
+
   # GET /breweries/1/edit
   def edit
   end
@@ -75,15 +76,15 @@ class BreweriesController < ApplicationController
       params.require(:brewery).permit(:name, :year)
     end
 
-  private
-   
-   def authenticate
+  #private
+
+   #def authenticate
     #raise "toteuta autentikointi"
-     admin_accounts = { "admin" => "secret", "pekka" => "beer", "arto" => "foobar", "matti" => "ittam"}
-     authenticate_or_request_with_http_basic do |username, password|
+    # admin_accounts = { "admin" => "secret", "pekka" => "beer", "arto" => "foobar", "matti" => "ittam"}
+     #authenticate_or_request_with_http_basic do |username, password|
       #username == "admin" and password == "secret"
-      admin_accounts.has_key?(username) and password == admin_accounts[username]
-    end
-   end
+      #admin_accounts.has_key?(username) and password == admin_accounts[username]
+    #end
+   #end
 
 end
