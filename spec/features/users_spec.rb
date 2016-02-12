@@ -33,5 +33,23 @@ describe "User" do
       }.to change{User.count}.by(1)
     end
   end
+end
 
+describe "User's page" do
+  let!(:brewery) {FactoryGirl.create :brewery, name:"Koff"}
+  let!(:beer1) {FactoryGirl.create :beer, name:"iso 3", brewery:brewery}
+  let!(:beer2) {FactoryGirl.create :beer, name:"Karhu", brewery:brewery}
+  let!(:user1) {FactoryGirl.create :user}
+  let!(:user2) {FactoryGirl.create :user, username:"Brian", password: "Secret1", password_confirmation: "Secret1"}
+
+  it "lists only user's ratings" do
+    #sign_in(username:"Pekka", password:"Foobar1")
+    FactoryGirl.create(:rating, score:10, beer:beer1, user:user1)
+    FactoryGirl.create(:rating, score:15, beer:beer2, user:user2)
+
+    visit user_path(user1)
+
+    expect(page).to have_content "iso 3 10"
+    expect(page).not_to have_content "Karhu 15"
+  end
 end

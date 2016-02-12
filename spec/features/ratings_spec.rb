@@ -25,6 +25,20 @@ describe "Ratings" do
     expect(beer1.ratings.count).to eq(1)
     expect(beer1.average_rating).to eq(15.0)
   end
+
+  it "is removed from the system when destroyed" do
+    FactoryGirl.create(:rating, score: 10, beer:beer1, user:user)
+    FactoryGirl.create(:rating, score: 15, beer:beer2, user:user)
+    visit user_path(user)
+    puts page.html
+
+    expect{
+      find("a[href='/ratings/1']").click
+      #click_link('delete')
+    }.to change{user.ratings.count}.from(2).to(1)
+    puts page.html
+  end
+
   describe "ratings page" do
     it "lists the existing ratings and their total number" do
       create_beers_with_ratings(user,10, 20, 15, 7, 9)
@@ -32,7 +46,6 @@ describe "Ratings" do
       visit ratings_path
 
       expect(page).to have_content "Number of ratings #{Rating.count}"
-      puts page.html
 
       Rating.all.each do |rating|
         expect(page).to have_content "#{rating}"

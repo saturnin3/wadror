@@ -22,8 +22,7 @@ describe "creating new beer" do
     select('Lager', from: 'beer[style]')
     select('Koff', from: 'beer[brewery_id]')
     click_button('Create Beer')
-    puts page.html
-
+    
     expect(Beer.count).to eq(0)
     expect(current_path).to eq(beers_path)
     expect(page).to have_content("Name can't be blank")
