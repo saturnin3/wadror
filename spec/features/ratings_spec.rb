@@ -30,13 +30,11 @@ describe "Ratings" do
     FactoryGirl.create(:rating, score: 10, beer:beer1, user:user)
     FactoryGirl.create(:rating, score: 15, beer:beer2, user:user)
     visit user_path(user)
-    puts page.html
 
     expect{
       find("a[href='/ratings/1']").click
       #click_link('delete')
     }.to change{user.ratings.count}.from(2).to(1)
-    puts page.html
   end
 
   describe "ratings page" do
