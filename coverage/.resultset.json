@@ -98,7 +98,7 @@
         1,
         null,
         1,
-        30,
+        31,
         0,
         null,
         null,
@@ -141,6 +141,12 @@
         2,
         null,
         null,
+        1,
+        2,
+        1,
+        null,
+        null,
+        null,
         null
       ],
       "/home/wadror/railsit/ratebeer/app/controllers/sessions_controller.rb": [
@@ -179,7 +185,7 @@
         1,
         null,
         1,
-        133,
+        134,
         84,
         null,
         null,
@@ -690,6 +696,6 @@
         0
       ]
     },
-    "timestamp": 1455271941
+    "timestamp": 1455306406
   }
 }

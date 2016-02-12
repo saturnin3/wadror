@@ -24,4 +24,5 @@
 <br>
 <br>
 <!-- <%= link_to 'List of breweries', breweries_path %> | -->
-<%= link_to('Edit', edit_beer_path(@beer)) if current_user %>
+<p><%= link_to('Edit', edit_beer_path(@beer)) if current_user %><br>
+<%= link_to('Destroy the beer', beer_path(@beer), method: :delete, data: { confirm: 'Are you sure?' }) if current_user %></p>
