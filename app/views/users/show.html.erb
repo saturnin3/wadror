@@ -10,6 +10,10 @@
     <%= link_to club.name, beer_club_path(club.id) %>
   <% end %>
 </p>
+<p>
+Favorite beer style: <%= @user.favorite_style %> <br>
+Favorite brewery: <%=  @user.favorite_brewery.name unless @user.favorite_brewery.nil? %>
+</p>
 
 <strong>ratings</strong>
 <ul>

@@ -39,7 +39,7 @@ describe "Ratings" do
 
   describe "ratings page" do
     it "lists the existing ratings and their total number" do
-      create_beers_with_ratings(user,10, 20, 15, 7, 9)
+      create_beers_with_ratings(user, "Lager", brewery, 10, 20, 15, 7, 9)
 
       visit ratings_path
 

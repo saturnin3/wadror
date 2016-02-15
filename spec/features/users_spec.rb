@@ -36,19 +36,24 @@ describe "User" do
 end
 
 describe "User's page" do
-  let!(:brewery) {FactoryGirl.create :brewery, name:"Koff"}
-  let!(:beer1) {FactoryGirl.create :beer, name:"iso 3", brewery:brewery}
-  let!(:beer2) {FactoryGirl.create :beer, name:"Karhu", brewery:brewery}
+  let!(:brewery1) {FactoryGirl.create :brewery, name:"Koff"}
+  let!(:brewery2){FactoryGirl.create :brewery, name:"Brewdog"}
+  let!(:beer1) {FactoryGirl.create :beer, name:"iso 3", style:"Lager", brewery:brewery1}
+  let!(:beer2) {FactoryGirl.create :beer, name:"Karhu", style:"Lager", brewery:brewery1}
+  let!(:beer3){FactoryGirl.create :beer, name:"Punk IPA", style:"IPA", brewery:brewery2}
   let!(:user1) {FactoryGirl.create :user}
   let!(:user2) {FactoryGirl.create :user, username:"Brian", password: "Secret1", password_confirmation: "Secret1"}
 
-  it "lists only user's ratings" do
+  it "lists only user's ratings and shows favorite beer style and brewery" do
     #sign_in(username:"Pekka", password:"Foobar1")
     FactoryGirl.create(:rating, score:10, beer:beer1, user:user1)
+    FactoryGirl.create(:rating, score:30, beer:beer3, user:user1)
     FactoryGirl.create(:rating, score:15, beer:beer2, user:user2)
 
     visit user_path(user1)
 
+    expect(page).to have_content "Favorite beer style: IPA"
+    expect(page).to have_content "Favorite brewery: Brewdog"
     expect(page).to have_content "iso 3 10"
     expect(page).not_to have_content "Karhu 15"
   end

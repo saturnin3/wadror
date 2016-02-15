@@ -1,5 +1,7 @@
 require 'rails_helper'
 
+include Helpers
+
 RSpec.describe User, type: :model do
   #pending "add some examples to (or delete) #{__FILE__}"
   it "has the username set correctly" do
@@ -50,6 +52,7 @@ RSpec.describe User, type: :model do
 
   describe "favorite beer" do
     let (:user){FactoryGirl.create(:user)}
+    let (:brewery){FactoryGirl.create(:brewery)}
 
     it "has method for determining one" do
       expect(user).to respond_to(:favorite_beer)
@@ -60,7 +63,7 @@ RSpec.describe User, type: :model do
     end
 
     it "is the only rated if only one rating" do
-      beer = create_beer_with_rating(user,10)
+      beer = create_beer_with_rating(user, "Lager", brewery, 10)
 
       expect(user.favorite_beer).to eq(beer)
     end
@@ -72,8 +75,8 @@ RSpec.describe User, type: :model do
       #rating1 = FactoryGirl.create(:rating, beer:beer1, user:user)
       #rating2 = FactoryGirl.create(:rating, score:25, beer:beer2, user:user)
       #rating3 = FactoryGirl.create(:rating, score:9, beer:beer3, user:user)
-      create_beers_with_ratings(user,10, 20, 15, 7, 9)
-      best = create_beer_with_rating(user, 25)
+      create_beers_with_ratings(user, "Lager", brewery, 10, 20, 15, 7, 9)
+      best = create_beer_with_rating(user, "IPA", brewery, 25)
 
       expect(user.favorite_beer).to eq(best)
     end
@@ -81,6 +84,7 @@ RSpec.describe User, type: :model do
 
   describe "favorite style" do
     let (:user){FactoryGirl.create(:user)}
+    let (:brewery){FactoryGirl.create(:brewery)}
 
     it "has method for determining one" do
       expect(user).to respond_to(:favorite_style)
@@ -91,42 +95,50 @@ RSpec.describe User, type: :model do
     end
 
     it "is the style of the only beer rated if only one rating" do
-      beer = create_beer_with_rating(user, 10)
+      beer = create_beer_with_rating(user, "Lager", brewery, 10)
 
-      expect(user.favorite_style).to eq(beer.style)
+      expect(user.favorite_style).to eq("Lager")
     end
 
-    #it "is the one with highest average rating if several rated" do
-    #  create_beers_with_style_and_ratings(user, "Lager", 10, 30)
-    #  create_beers_with_style_and_ratings(user, "IPA", 15, 17)
-    #  best = create_beer_with_style_and_rating(user, "IPA", 35)
+    it "is the style with highest average score if several rated" do
+      create_beers_with_ratings(user, "Lager", brewery, 10, 30)
+      create_beers_with_ratings(user, "IPA", brewery, 35, 15, 17)
 
-    #  expect(user.favorite_style).to eq(best.style)
-    #end
+      expect(user.favorite_style).to eq("IPA")
+    end
 
-  end
-end
+  end #end describing favorite style
 
-def create_beer_with_rating(user, score)
-  beer = FactoryGirl.create(:beer)
-  FactoryGirl.create(:rating, score:score, beer:beer, user:user)
-  beer
-end
+  describe "favorite brewery" do
+    let (:user){FactoryGirl.create(:user)}
 
-def create_beers_with_ratings(user, *scores)
-  scores.each do |score|
-    create_beer_with_rating(user, score)
-  end
-end
+    it "has method for determining one" do
+      expect(user).to respond_to(:favorite_brewery)
+    end
 
-def create_beer_with_style_and_rating(user, style, score)
-  beer = FactoryGirl.create(:beer, style:style)
-  FactoryGirl.create(:rating, score:score, beer:beer, user:user)
-  beer
-end
+    it "without ratings does not have favorite brewery" do
+      expect(user.favorite_brewery).to eq(nil)
+    end
 
-def create_beers_with_style_and_ratings(user, style, *scores)
-  scores.each do |score|
-    create_beer_with_style_and_rating(user, style, score)
-  end
+    it "is the brewery of the only beer rated if only one rating" do
+      brewery = FactoryGirl.create(:brewery)
+      beer = FactoryGirl.create(:beer, brewery: brewery)
+      FactoryGirl.create(:rating, beer:beer, user:user)
+
+      expect(user.favorite_brewery).to eq(brewery)
+    end
+
+    it "is the brewery with highest average score if several rated" do
+      brewery1 = FactoryGirl.create(:brewery)
+      brewery2 = FactoryGirl.create(:brewery)
+      brewery3 = FactoryGirl.create(:brewery)
+      create_beers_with_ratings(user, "Lager", brewery1, 10, 20, 15, 7, 9 )
+      create_beers_with_ratings(user, "IPA", brewery2, 25, 20)
+      create_beers_with_ratings(user, "Stout", brewery3, 20, 23, 22)
+
+      expect(user.favorite_brewery).to eq(brewery2)
+    end
+
+  end #end describing favorite brewery
+
 end
