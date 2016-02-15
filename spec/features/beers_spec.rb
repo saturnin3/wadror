@@ -13,7 +13,7 @@ describe "creating new beer" do
   it "when created with valid name, is added to the system" do
     visit new_beer_path
 
-    puts page.html
+    #puts page.html
 
     fill_in('beer_name', with: 'Olut')
     select('Lager', from: 'beer[style]')

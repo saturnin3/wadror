@@ -25,6 +25,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
+gem 'httparty' #Viikko 5, kuuluuko olla tassa?
 # Use Unicorn as the app server
 # gem 'unicorn'
 
@@ -56,6 +57,7 @@ group :production do
   gem 'rails_12factor'
 end
 
+
 ruby '2.3.0'
 
 group :test do
@@ -64,4 +66,5 @@ group :test do
   gem 'launchy'
   gem 'rspec-its'
   gem 'simplecov', require: false
+  gem 'webmock'
 end
