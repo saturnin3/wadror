@@ -1,6 +1,13 @@
 class BeermappingApi
 
   def self.places_in(city)
+    city = city.downcase
+    Rails.cache.fetch(city, expires_in: 7.days){ fetch_places_in(city) }
+  end
+
+  private
+
+  def self.fetch_places_in(city)
     url = "http://beermapping.com/webservice/loccity/#{key}/"
     #tai vaihtoehtoisesti
     #url = 'http://stark-oasis-9187.herokuapp.com/api/'

@@ -6,6 +6,8 @@ script:
 - RAILS_ENV=test bundle exec rake db:migrate --trace
 - bundle exec rake db:test:prepare
 - bundle exec rspec -fd spec/
+env:
+  - APIKEY="764d24ad5336ce7dff2d91ab27ccf268"
 deploy:
   provider: heroku
   api_key:
