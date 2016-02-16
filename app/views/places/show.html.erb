@@ -1,0 +1,16 @@
+<p>
+  <h2> <%=@place["name"] %> </h2>
+</p>
+
+<p>
+  <%= @place["street"] %>
+</p>
+
+<p>
+  <%= @place["zip"]%>
+  <%= @place["city"]%>
+</p>
+
+<p>
+  <iframe src="<%= @place["blogmap"]%>" width="400" height="400" ></iframe>
+</p>

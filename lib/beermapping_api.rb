@@ -22,6 +22,14 @@ class BeermappingApi
     end
   end
 
+  def self.place_by_id(id)
+    url = "http://beermapping.com/webservice/locquery/#{key}/"
+    #tai vaihtoehtoisesti
+    #url = 'http://stark-oasis-9187.herokuapp.com/api/'
+    response = HTTParty.get "#{url}#{id}"
+    place = response.parsed_response["bmp_locations"]["location"]
+  end
+
   def self.key
     raise "APIKEY env variable not defined" if ENV['APIKEY'].nil?
     ENV['APIKEY']

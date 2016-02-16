@@ -16,8 +16,12 @@ Rails.application.routes.draw do
   get 'signin', to: 'sessions#new'
   delete 'signout', to: 'sessions#destroy'
   get 'join_club', to: 'memberships#new'
-  get 'places', to: 'places#index'
+
+  resources :places, only: [:index, :show]
+  #get 'places', to: 'places#index'
   post 'places', to: 'places#search'
+
+
 
 
 # The priority is based upon order of creation: first created -> highest priority.
