@@ -13,6 +13,22 @@
 </ul>
 <br>
 
+<%if current_user %>
 
-<p> <%= link_to('Edit', edit_beer_club_path(@beer_club)) if current_user %>
-<br><%= link_to('Destroy the club', beer_club_path(@beer_club), method: :delete, data: { confirm: 'Are you sure?' }) if current_user %></p>
+
+  <%if @beer_club.members.find_by(username: current_user.username).nil? %>
+    <%= form_for(@newmembership) do |f| %>
+      <%= f.hidden_field :beer_club_id %>
+      <%= f.submit value: "join the club"%>
+    <% end %>
+  <% else %>
+    <%= form_for(@membership, method: "delete") do |f| %>
+      <%= f.hidden_field :beer_club_id %>
+      <%= f.submit value: "end the membership" %>
+    <% end %>
+  <%end%>
+
+  <p> <%= link_to('Edit', edit_beer_club_path(@beer_club)) %>
+  <br><%= link_to('Destroy the club', beer_club_path(@beer_club), method: :delete, data: { confirm: 'Are you sure?' }) %></p>
+
+<%end%>

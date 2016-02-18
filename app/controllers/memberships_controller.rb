@@ -31,7 +31,7 @@ class MembershipsController < ApplicationController
        # if not Membership.where(beer_club_id: params[:beer_club_id]).pluck(:user_id).include? current_user.id and
         if @membership.save
         current_user.memberships << @membership
-        format.html { redirect_to @membership, notice: 'Membership was successfully created.' }
+        format.html { redirect_to beer_club_path(@membership.beer_club_id), notice: "#{@membership.user.username}, welcome to the club!" }
         format.json { render :show, status: :created, location: @membership }
       else
         format.html { render :new }
@@ -59,7 +59,7 @@ class MembershipsController < ApplicationController
   def destroy
     @membership.destroy
     respond_to do |format|
-      format.html { redirect_to memberships_url, notice: 'Membership was successfully destroyed.' }
+      format.html { redirect_to user_path(@membership.user_id), notice: "Membership in #{@membership.beer_club.name} ended." }
       format.json { head :no_content }
     end
   end
