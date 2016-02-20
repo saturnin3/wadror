@@ -12,5 +12,5 @@
 </p>
 
 <p>
-  <iframe src="<%= @place["blogmap"]%>" width="400" height="400" ></iframe>
+  <iframe src="<%= @place["blogmap"].gsub("http", "https")%>" width="400" height="400" ></iframe>
 </p>
