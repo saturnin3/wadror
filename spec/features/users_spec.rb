@@ -38,9 +38,11 @@ end
 describe "User's page" do
   let!(:brewery1) {FactoryGirl.create :brewery, name:"Koff"}
   let!(:brewery2){FactoryGirl.create :brewery, name:"Brewdog"}
-  let!(:beer1) {FactoryGirl.create :beer, name:"iso 3", style:"Lager", brewery:brewery1}
-  let!(:beer2) {FactoryGirl.create :beer, name:"Karhu", style:"Lager", brewery:brewery1}
-  let!(:beer3){FactoryGirl.create :beer, name:"Punk IPA", style:"IPA", brewery:brewery2}
+  let!(:style1){FactoryGirl.create :style, name:"Lager"}
+  let!(:style2){FactoryGirl.create :style, name:"IPA"}
+  let!(:beer1) {FactoryGirl.create :beer, name:"iso 3", style:style1, brewery:brewery1}
+  let!(:beer2) {FactoryGirl.create :beer, name:"Karhu", style:style1, brewery:brewery1}
+  let!(:beer3){FactoryGirl.create :beer, name:"Punk IPA", style:style2, brewery:brewery2}
   let!(:user1) {FactoryGirl.create :user}
   let!(:user2) {FactoryGirl.create :user, username:"Brian", password: "Secret1", password_confirmation: "Secret1"}
 

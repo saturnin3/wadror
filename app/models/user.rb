@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
     return nil if ratings.empty?
 
     rated = ratings.map{ |r| r.beer.style }.uniq
-    rated.sort_by { |style| -rating_of_style(style) }.first
+    rated.sort_by { |style| -rating_of_style(style) }.first.name
 
   end
 

@@ -5,6 +5,7 @@ include Helpers
 describe "creating new beer" do
   let!(:brewery) {FactoryGirl.create :brewery, name:"Koff"}
   let!(:user) {FactoryGirl.create :user}
+  let!(:style) {FactoryGirl.create :style, name:"Lager"}
 
   before :each do
     sign_in(username:"Pekka", password:"Foobar1")
@@ -16,7 +17,7 @@ describe "creating new beer" do
     #puts page.html
 
     fill_in('beer_name', with: 'Olut')
-    select('Lager', from: 'beer[style]')
+    select('Lager', from: 'beer[style_id]')
     select('Koff', from: 'beer[brewery_id]')
 
     expect {
@@ -28,7 +29,7 @@ describe "creating new beer" do
     visit new_beer_path
 
     #fill_in('beer_name', with: '')
-    select('Lager', from: 'beer[style]')
+    select('Lager', from: 'beer[style_id]')
     select('Koff', from: 'beer[brewery_id]')
     click_button('Create Beer')
 

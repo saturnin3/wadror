@@ -4,8 +4,9 @@ include Helpers
 
 describe "Ratings" do
   let!(:brewery) {FactoryGirl.create :brewery, name:"Koff"}
-  let!(:beer1) {FactoryGirl.create :beer, name:"iso 3", brewery:brewery}
-  let!(:beer2) {FactoryGirl.create :beer, name:"Karhu", brewery:brewery}
+  let!(:style) {FactoryGirl.create :style, name:"Lager"}
+  let!(:beer1) {FactoryGirl.create :beer, name:"iso 3", style:style, brewery:brewery}
+  let!(:beer2) {FactoryGirl.create :beer, name:"Karhu", style:style, brewery:brewery}
   let!(:user) {FactoryGirl.create :user}
 
   before :each do
@@ -39,7 +40,7 @@ describe "Ratings" do
 
   describe "ratings page" do
     it "lists the existing ratings and their total number" do
-      create_beers_with_ratings(user, "Lager", brewery, 10, 20, 15, 7, 9)
+      create_beers_with_ratings(user, style, brewery, 10, 20, 15, 7, 9)
 
       visit ratings_path
 

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<h2> <%= @style.name %> </h2>
+
+<p>
+  <%= @style.description %>
+</p>
+
+<strong> Beers </strong>
+
+<ul>
+  <% @style.beers.each do |beer| %>
+    <li> <%= link_to beer.name, beer %> by <%= link_to beer.brewery.name, beer.brewery%> </li>
+  <% end %>
+</ul>
+
+
+<p><%= link_to('Edit', edit_style_path(@style)) if current_user %>
+<%= link_to('Destroy', style_path(@style), method: :delete, data: { confirm: 'Are you sure?' }) if current_user %></p>
