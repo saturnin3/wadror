@@ -13,7 +13,7 @@ class BeerClubsController < ApplicationController
   def show
     @newmembership = Membership.new
     @newmembership.beer_club = @beer_club
-    @membership = @beer_club.memberships.find_by(user_id: current_user.id)
+  #  @membership = @beer_club.memberships.find_by(user_id: current_user.id)
 
   end
 

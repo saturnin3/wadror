@@ -1,24 +1,27 @@
-<p id="notice"><%= notice %></p>
+<!--<p id="notice"><%= notice %></p>-->
 
 <h1>Listing Styles</h1>
 
-<table>
+<!--<table class="table table-striped">
   <thead>
     <tr>
       <th>Name</th>
       <th colspan="3"></th>
     </tr>
-  </thead>
+  </thead>-->
 
-  <tbody>
+<!--  <tbody>-->
+<div class="list-group">
     <% @styles.each do |style| %>
-      <tr>
-        <td><%= link_to style.name, style %></td>
-      </tr>
+    <!--  <tr>-->
+  <h4 class="list-group-item-heading">    <!--  <td>--><%= link_to style.name, style %><!--</td> --></h4>
+  <p class="list_group_item_text"><%=style.description%></p>
+    <!--  </tr>-->
     <% end %>
-  </tbody>
-</table>
+  </div>
+<!--  </tbody>
+</table>-->
 
 <br>
 
-<%= link_to 'New Style', new_style_path %>
+<%= link_to 'New Style', new_style_path, class:"btn btn-primary btn-sm" %>

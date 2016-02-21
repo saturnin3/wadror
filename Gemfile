@@ -32,6 +32,13 @@ gem 'httparty' #Viikko 5, kuuluuko olla tassa?
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+#Bootsrap kayttoon:
+gem 'bootstrap-sass'
+
+group :development do
+  gem 'rails_layout'
+end
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

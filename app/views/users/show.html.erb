@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<!--<p id="notice"><%= notice %></p>-->
 
 <p>
   <h2> <%= @user.username %></h2>
@@ -29,7 +29,7 @@ Favorite brewery: <%=  @user.favorite_brewery.name unless @user.favorite_brewery
 <br>
 
 <%if @user == current_user %>
+  <p><%= link_to'Destroy', user_path(@user), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger btn-sm" %> </p>
   <%= link_to 'Edit', edit_user_path(@user) %> |
-  <%= link_to 'Destroy', user_path(@user), method: :delete, data: { confirm: 'Are you sure?' } %> |
 <%end%>
 <%= link_to 'Back', users_path %>

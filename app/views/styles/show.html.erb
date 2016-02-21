@@ -15,5 +15,5 @@
 </ul>
 
 
-<p><%= link_to('Edit', edit_style_path(@style)) if current_user %>
-<%= link_to('Destroy', style_path(@style), method: :delete, data: { confirm: 'Are you sure?' }) if current_user %></p>
+<p><%= link_to('Destroy style', style_path(@style), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger btn-sm") if current_user%></p>
+<p><%= link_to('Edit', edit_style_path(@style)) if current_user %></p>

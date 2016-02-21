@@ -19,13 +19,15 @@
   <% end %>
 </p>
 
-<% if @brewery.ratings.empty? %>
+<P><% if @brewery.ratings.empty? %>
  Has no ratings!
 <% else %>
  Has <%= pluralize(@brewery.ratings.count, 'rating') %>, average <%= @brewery.average_rating %>
 <% end %>
+</p>
 <br>
 <!-- <%= link_to 'List of beers', beers_path %> | -->
-<p><%= link_to('Edit', edit_brewery_path(@brewery)) if current_user %>
-<br><%= link_to('Destroy the brewery', brewery_path(@brewery), method: :delete, data: { confirm: 'Are you sure?' }) if current_user %></p>
+<p><%= link_to('Destroy the brewery', brewery_path(@brewery), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger btn-sm" ) if current_user %></p>
+
+<p><%= link_to('Edit', edit_brewery_path(@brewery) ) if current_user %></p>
 <!-- | <%= link_to 'Back', breweries_path %> -->

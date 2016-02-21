@@ -22,7 +22,7 @@
       <%= f.submit value: "join the club"%>
     <% end %>
   <% else %>
-    <%= form_for(@membership, method: "delete") do |f| %>
+    <%= form_for(@beer_club.memberships.find_by(user_id: current_user.id), method: "delete") do |f| %>
       <%= f.hidden_field :beer_club_id %>
       <%= f.submit value: "end the membership" %>
     <% end %>
