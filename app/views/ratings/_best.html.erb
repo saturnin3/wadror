@@ -1,0 +1,19 @@
+
+<table class="table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>average</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% best.each do |b| %>
+      <tr>
+        <td><%= b.name  %></td>
+        <td><%= round(b.average_rating) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

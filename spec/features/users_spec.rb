@@ -47,7 +47,7 @@ describe "User's page" do
   let!(:user2) {FactoryGirl.create :user, username:"Brian", password: "Secret1", password_confirmation: "Secret1"}
 
   it "lists only user's ratings and shows favorite beer style and brewery" do
-    #sign_in(username:"Pekka", password:"Foobar1")
+    sign_in(username:"Pekka", password:"Foobar1")
     FactoryGirl.create(:rating, score:10, beer:beer1, user:user1)
     FactoryGirl.create(:rating, score:30, beer:beer3, user:user1)
     FactoryGirl.create(:rating, score:15, beer:beer2, user:user2)

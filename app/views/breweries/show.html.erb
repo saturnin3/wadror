@@ -1,11 +1,17 @@
-<p id="notice"><%= notice %></p>
+<!--<p id="notice"><%= notice %></p>-->
 
 <p>
-  <h2> <%= @brewery.name %> </h2>
+  <h2> <%= @brewery.name %>
+    <% if not @brewery.active %>
+      <span class="label label-info">retired</span>
+    <%end%>
+  </h2>
+
 </p>
 
 <p>
-  <i>Established in <%= @brewery.year %> </i>
+  <em>Established in </em>
+  <%= @brewery.year %>
 </p>
 
 <p>
@@ -22,12 +28,15 @@
 <P><% if @brewery.ratings.empty? %>
  Has no ratings!
 <% else %>
- Has <%= pluralize(@brewery.ratings.count, 'rating') %>, average <%= @brewery.average_rating %>
+ Has <%= pluralize(@brewery.ratings.count, 'rating') %>, average <%= round(@brewery.average_rating) %>
 <% end %>
 </p>
 <br>
+<p>
+<%= link_to "change activity", toggle_activity_brewery_path(@brewery.id), method: :post, class:"btn btn-primary btn-sm"%>
+</p>
 <!-- <%= link_to 'List of beers', beers_path %> | -->
-<p><%= link_to('Destroy the brewery', brewery_path(@brewery), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger btn-sm" ) if current_user %></p>
+<%= edit_and_destroy_buttons(@brewery)%>
 
-<p><%= link_to('Edit', edit_brewery_path(@brewery) ) if current_user %></p>
+
 <!-- | <%= link_to 'Back', breweries_path %> -->

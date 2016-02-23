@@ -54,9 +54,9 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    if @user == current_user
+    if (@user == current_user or current_user.admin?)
       @user.destroy
-      session[:user_id] = nil
+      session[:user_id] = nil unless @user != current_user
       respond_to do |format|
         format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
         format.json { head :no_content }
@@ -64,6 +64,20 @@ class UsersController < ApplicationController
     else
       format.html { render :edit, notice: "Can't destroy other users." }
       format.json { render json: @user.errors, status: :unprocessable_entity }
+    end
+  end
+
+
+  def toggle_suspension
+    user = User.find(params[:id])
+    if (current_user.admin and not user.admin)
+      user.update_attribute :suspended, (not user.suspended)
+
+      new_status = user.suspended? ? "frozen" : "reactivated"
+
+      redirect_to :back, notice: "Account was successfully #{new_status}"
+    else
+      redirect_to :back, notice: "Cannot freeze account"
     end
   end
 

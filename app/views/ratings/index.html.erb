@@ -1,7 +1,59 @@
-<h2>List of ratings</h2>
+<h2>Rating Statistics</h2>
 
-<div class="panel panel-default">
-  <div class="panel-heading">Number of ratings: <%= @ratings.count %></div>
+<div style="float: left; width:30%; margin:10px; display:inline-block">
+  <h3>Best beers</h3>
+  <%=render 'best', best: @top_beers %>
+</div>
+
+<div style="float: left; width:30%; margin:10px; display:inline-block">
+  <h3>Best breweries</h3>
+  <%= render 'best', best: @top_breweries %>
+</div>
+
+<div style="float: left; width:30%; margin:10px; display:inline-block">
+  <h3>Best styles</h3>
+  <%= render 'best', best: @top_styles %>
+</div>
+
+<h3>Most active users</h3>
+
+<!--<div class="panel panel-default">
+  <div class="panel-heading">Number of ratings: <%= @ratings.count %></div>-->
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th></th>
+      <th>favorite beer</th>
+      <th>prefered style</th>
+      <th>favorite brewery</th>
+      <th>ratings</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @most_active.each do |user| %>
+      <tr>
+        <td><%= user.username  %></td>
+        <%if not user.ratings.empty? %>
+          <td><%= user.favorite_beer %></td>
+          <td><%= user.favorite_style.name %></td>
+          <td><%= user.favorite_brewery.name %></td>
+        <%else%>
+          <td>n/a</td>
+          <td>n/a</td>
+          <td>n/a</td>
+        <%end%>
+        <td><%= user.ratings.count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<!--</div>-->
+<h3>Recent ratings</h3>
+
+<!--<div class="panel panel-default">
+  <div class="panel-heading">Number of ratings: <%= @ratings.count %></div>-->
 <table class="table table-hover">
   <thead>
     <tr>
@@ -13,7 +65,7 @@
   </thead>
 
   <tbody>
-    <% @ratings.each do |rating| %>
+    <% @ratings.recent.each do |rating| %>
       <tr>
         <td><%= link_to Beer.find(rating.beer_id).name, beer_path(rating.beer_id)  %></td>
         <td><%= rating.score %></td>
@@ -22,7 +74,8 @@
     <% end %>
   </tbody>
 </table>
-</div>
+<!--</div>-->
+
 
 
 

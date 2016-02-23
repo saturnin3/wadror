@@ -23,7 +23,15 @@ Rails.application.routes.draw do
 
   resources :styles
 
+  resources :breweries do
+    post 'toggle_activity', on: :member
+  end
 
+  resources :users do
+    post 'toggle_suspension', on: :member
+  end
+
+  
 
 # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
