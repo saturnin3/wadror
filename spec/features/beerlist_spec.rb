@@ -15,9 +15,9 @@ describe "beerlist page" do
     @brewery1 = FactoryGirl.create(:brewery, name:"Koff")
     @brewery2 = FactoryGirl.create(:brewery, name:"Schlenkerla")
     @brewery3 = FactoryGirl.create(:brewery, name:"Ayinger")
-    @style1 = FactoryGirl.create(:style, name:"Tyyli1")
-    @style2 = FactoryGirl.create(:style, name:"Tyyli2")
-    @style3 = FactoryGirl.create(:style, name:"Tyyli3")
+    @style1 = FactoryGirl.create(:style, name:"Lager")
+    @style2 = FactoryGirl.create(:style, name:"Rauchbier")
+    @style3 = FactoryGirl.create(:style, name:"Weizen")
     @beer1 = FactoryGirl.create(:beer, name:"Nikolai", brewery: @brewery1, style:@style1)
     @beer2 = FactoryGirl.create(:beer, name:"Fastenbier", brewery:@brewery2, style:@style2)
     @beer3 = FactoryGirl.create(:beer, name:"Lechte Weisse", brewery:@brewery3, style:@style3)
@@ -33,7 +33,32 @@ describe "beerlist page" do
 
   it "shows one known beer", js:true do
     visit beerlist_path
+    find('table').find('tr:nth-child(2)')
     expect(page).to have_content "Nikolai"
   end
+
+  it "when opened, has beers in alphabetical order", js:true do
+    visit beerlist_path
+    expect(find('table').find('tr:nth-child(2)')).to have_content "Fastenbier"
+    expect(find('table').find('tr:nth-child(3)')).to have_content "Lechte Weisse"
+    expect(find('table').find('tr:nth-child(4)')).to have_content "Nikolai"
+  end
+
+  it "sorts beers by style when style is clicked", js:true do
+    visit beerlist_path
+    click_link('style')
+    expect(find('table').find('tr:nth-child(2)')).to have_content "Lager"
+    expect(find('table').find('tr:nth-child(3)')).to have_content "Rauchbier"
+    expect(find('table').find('tr:nth-child(4)')).to have_content "Weizen"
+  end
+
+  it "sorts beers by brewery when brewery is clicked", js:true do
+    visit beerlist_path
+    click_link('brewery')
+    expect(find('table').find('tr:nth-child(2)')).to have_content "Ayinger"
+    expect(find('table').find('tr:nth-child(3)')).to have_content "Koff"
+    expect(find('table').find('tr:nth-child(4)')).to have_content "Schlenkerla"
+  end
+
 
 end

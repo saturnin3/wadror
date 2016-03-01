@@ -1,6 +1,10 @@
 language: ruby
 rvm:
 - 2.3.0
+before_scipt:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/iniy.d/xvfb start"
+  - sleep 3 
 script:
 - bundle exec rake db:migrate --trace
 - RAILS_ENV=test bundle exec rake db:migrate --trace
