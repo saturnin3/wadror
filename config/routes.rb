@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
   root 'breweries#index'
   get 'kaikki_bisset', to: 'beers#index'
+  get 'beerlist', to:'beers#list'
+  get 'ngbeerlist', to: 'beers#nglist'
+  get 'brewerylist', to: 'breweries#list'
  # get 'ratings', to: 'ratings#index'
   #get 'ratings/new', to: 'ratings#new'
   #post 'ratings', to: 'ratings#create'
@@ -31,7 +34,7 @@ Rails.application.routes.draw do
     post 'toggle_suspension', on: :member
   end
 
-  
+
 
 # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

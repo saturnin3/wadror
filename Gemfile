@@ -15,6 +15,8 @@ gem 'coffee-rails', '~> 4.1.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+#JQuery turbolinks
+gem 'jquery-turbolinks'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -35,14 +37,17 @@ gem 'httparty' #Viikko 5, kuuluuko olla tassa?
 #Bootsrap kayttoon:
 gem 'bootstrap-sass'
 
+
+
 group :development do
   gem 'rails_layout'
+  gem 'web-console', '~> 2.0'
 end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-  gem 'web-console', '~> 2.0'
+
   gem "better_errors"
   gem 'rspec-rails', '~> 3.0'
  #....
@@ -74,4 +79,6 @@ group :test do
   gem 'rspec-its'
   gem 'simplecov', require: false
   gem 'webmock'
+  gem 'selenium-webdriver'
+  gem 'database_cleaner'
 end

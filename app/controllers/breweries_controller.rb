@@ -1,7 +1,7 @@
 class BreweriesController < ApplicationController
   before_action :set_brewery, only: [:show, :edit, :update, :destroy]
   #before_action :authenticate, only: [:destroy]
-  before_action :ensure_that_signed_in, except: [:index, :show]
+  before_action :ensure_that_signed_in, except: [:index, :show, :list]
   before_action :ensure_that_admin, only: [:destroy]
 
   # GET /breweries
@@ -9,7 +9,26 @@ class BreweriesController < ApplicationController
   def index
     @active_breweries = Brewery.active
     @retired_breweries = Brewery.retired
-   # render :panimot
+    @breweries = Brewery.all
+
+    order = params[:order] || 'name'
+
+    if session[:order] == order
+      session[:asc] = session[:asc].!
+    else
+      session[:asc] = true
+    end
+
+      direction = session[:asc] ? "ASC" : "DESC"
+      @active_breweries = case order
+        when 'name' then @active_breweries.order("name #{direction}")
+        when 'year' then @active_breweries.order("year #{direction}")
+      end
+      @retired_breweries = case order
+        when 'name' then @retired_breweries.order("name #{direction}")
+        when 'year' then @retired_breweries.order("year #{direction}")
+      end
+      session[:order] = order
   end
 
   # GET /breweries/1
@@ -25,6 +44,9 @@ class BreweriesController < ApplicationController
 
   # GET /breweries/1/edit
   def edit
+  end
+
+  def list
   end
 
   # POST /breweries
@@ -70,6 +92,7 @@ class BreweriesController < ApplicationController
   def toggle_activity
     brewery = Brewery.find(params[:id])
     brewery.update_attribute :active, (not brewery.active)
+    #byebug
 
     new_status = brewery.active? ? "active" : "retired"
 

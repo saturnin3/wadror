@@ -1,7 +1,7 @@
 class Style < ActiveRecord::Base
   include RatingAverage
-  
-  validates :name, uniqueness: true
+
+#  validates :name, uniqueness: true
   validates :name, presence: true
 
   has_many :beers, dependent: :destroy
