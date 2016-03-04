@@ -7,3 +7,7 @@
  password <%= password_field_tag :password, params[:password]%>
   <%= submit_tag "Log in"%>
 <% end %>
+
+<br>
+
+<%= link_to('Sign in with GitHub', '/auth/github', class:"btn btn-primary btn-sm") %>

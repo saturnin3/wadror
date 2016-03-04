@@ -2,24 +2,45 @@
 
 <p>
   <h2> <%= @user.username %>
-    <% if current_user.admin && @user.suspended %>
+    <% if current_user && current_user.admin && @user.suspended %>
       <span class="label label-info">account frozen</span>
     <%end%>
   </h2>
-  Has made <%=pluralize(@user.ratings.count, 'rating') %>, average <%= round(@user.average_rating) %>
-</p>
-
-<p> Member of
-  <% @user.beer_clubs.each do |club| %>
-    <%= link_to club.name, beer_club_path(club.id) %>
-  <% end %>
 </p>
 <p>
 Favorite beer style: <%= @user.favorite_style.name unless @user.favorite_style.nil?%> <br>
 Favorite brewery: <%=  @user.favorite_brewery.name unless @user.favorite_brewery.nil? %>
 </p>
 
-<strong>ratings</strong>
+<h3> Beer clubs </h3>
+<p> <strong> Member of</strong>
+  <ul>
+  <% @user.beer_clubs.each do |club| %>
+    <% if club.members.find_by(id: @user.id) %>
+    <li>
+      <%= link_to club.name, beer_club_path(club.id) %>
+      <%end%>
+    </li>
+  <% end %>
+</ul>
+</p>
+
+<p> <strong> Applied membership of</strong>
+  <ul>
+  <% @user.beer_clubs.each do |club| %>
+    <% if not club.members.find_by(id: @user.id) %>
+    <li>
+      <%= link_to club.name, beer_club_path(club.id) %>
+      <%end%>
+    </li>
+  <% end %>
+</ul>
+</p>
+
+
+
+<h3>ratings</h3>
+  Has made <%=pluralize(@user.ratings.count, 'rating') %>, average <%= round(@user.average_rating) %>
 <ul>
   <% @user.ratings.each do |rating| %>
     <li>

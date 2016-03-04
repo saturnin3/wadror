@@ -1,10 +1,12 @@
 <!--<p id="notice"><%= notice %></p>-->
+<% cache @beer do %>
 
-<h2> <%= @beer %> </h2>
+<h2> <%= @beer.name %> </h2>
 
 <p>
-  <strong>Style:</strong>
-  <%= @beer.style.name %>
+  <%= link_to @beer.style.name, @beer.style %>
+  Brewed by
+  <%= link_to @beer.brewery.name, @beer.brewery %>
 </p>
 
 
@@ -13,6 +15,8 @@
 <% else %>
  <p>Has <%= pluralize(@beer.ratings.count, 'rating') %>, average score <%= round(@beer.average_rating)%> </p>
 <% end %>
+
+<%end%>
 
 <%if current_user %>
 

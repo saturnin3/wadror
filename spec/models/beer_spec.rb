@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Beer, type: :model do
-  it "is saved with name and style id" do
-    beer = Beer.create name:"Karhu", style_id: 1
+  it "is saved with name and style" do
+    style1 = FactoryGirl.create(:style)
+    beer = Beer.create name:"Karhu", style: style1
 
     expect(beer).to be_valid
     expect(Beer.count).to eq(1)

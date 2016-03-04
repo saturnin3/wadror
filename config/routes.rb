@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'beerlist', to:'beers#list'
   get 'ngbeerlist', to: 'beers#nglist'
   get 'brewerylist', to: 'breweries#list'
+  get 'auth/:provider/callback', to: 'sessions#create_oauth'
  # get 'ratings', to: 'ratings#index'
   #get 'ratings/new', to: 'ratings#new'
   #post 'ratings', to: 'ratings#create'
@@ -32,6 +33,10 @@ Rails.application.routes.draw do
 
   resources :users do
     post 'toggle_suspension', on: :member
+  end
+
+  resources :memberships do
+    post 'toggle_confirmation', on: :member
   end
 
 

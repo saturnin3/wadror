@@ -1,6 +1,7 @@
-<!--<p id="notice"><%= notice %></p>-->
-
 <h1>Breweries</h1>
+
+
+<% cache "brewerylist", skip_digest: true do %>
 
 <h2>Active</h2>
 
@@ -15,6 +16,7 @@
   <div class="panel-heading">Number of retired breweries: <%= @retired_breweries.count %></div>
   <%= render 'list', breweries: @retired_breweries %>
 </div>
+<%end%>
 
 <br>
 

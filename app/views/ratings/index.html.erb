@@ -1,5 +1,6 @@
 <h2>Rating Statistics</h2>
 
+
 <div style="float: left; width:30%; margin:10px; display:inline-block">
   <h3>Best beers</h3>
   <%=render 'best', best: @top_beers %>
@@ -17,8 +18,8 @@
 
 <h3>Most active users</h3>
 
-<!--<div class="panel panel-default">
-  <div class="panel-heading">Number of ratings: <%= @ratings.count %></div>-->
+
+
 <table class="table table-hover">
   <thead>
     <tr>
@@ -49,11 +50,11 @@
     <% end %>
   </tbody>
 </table>
-<!--</div>-->
+
 <h3>Recent ratings</h3>
 
-<!--<div class="panel panel-default">
-  <div class="panel-heading">Number of ratings: <%= @ratings.count %></div>-->
+
+
 <table class="table table-hover">
   <thead>
     <tr>
@@ -67,26 +68,10 @@
   <tbody>
     <% @ratings.recent.each do |rating| %>
       <tr>
-        <td><%= link_to Beer.find(rating.beer_id).name, beer_path(rating.beer_id)  %></td>
+        <td><%= link_to rating.beer.name, rating.beer  %></td>
         <td><%= rating.score %></td>
-        <td><%= link_to User.find(rating.user_id).username, user_path(rating.user_id) %>
+        <td><%= link_to rating.user.username, rating.user %>
       </tr>
     <% end %>
   </tbody>
 </table>
-<!--</div>-->
-
-
-
-
-<!--<div class="panel panel-default">
-  <div class="panel-heading">Number of ratings: <%= @ratings.count %></div>
-<ul class="list-group">
-  <% @ratings.each do |rating| %>
-    <li class="list-group-item"> <%= rating %> <%= link_to User.find(rating.user_id).username, user_path(rating.user_id) %> </li>
-  <% end %>
-</ul>
-</div>
-<br>-->
-
-<!--<%= link_to 'New Rating', new_rating_path %>-->

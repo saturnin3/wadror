@@ -31,7 +31,7 @@ class MembershipsController < ApplicationController
        # if not Membership.where(beer_club_id: params[:beer_club_id]).pluck(:user_id).include? current_user.id and
         if @membership.save
         current_user.memberships << @membership
-        format.html { redirect_to beer_club_path(@membership.beer_club_id), notice: "#{@membership.user.username}, welcome to the club!" }
+        format.html { redirect_to beer_club_path(@membership.beer_club_id), notice: "Request to join club sent." }
         format.json { render :show, status: :created, location: @membership }
       else
         format.html { render :new }
@@ -63,6 +63,14 @@ class MembershipsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def toggle_confirmation
+    membership = Membership.find(params[:id])
+    membership.update_attribute :confirmed, true
+
+    redirect_to :back, notice: "Membership was successfully confirmed"
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

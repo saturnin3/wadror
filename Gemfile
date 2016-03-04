@@ -37,7 +37,11 @@ gem 'httparty' #Viikko 5, kuuluuko olla tassa?
 #Bootsrap kayttoon:
 gem 'bootstrap-sass'
 
+#miniprofiler viikko 7
+gem 'rack-mini-profiler'
 
+#github-autentikaatio
+gem 'omniauth-github', '~> 1.1', '>= 1.1.2'
 
 group :development do
   gem 'rails_layout'

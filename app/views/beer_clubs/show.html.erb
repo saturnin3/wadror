@@ -4,22 +4,37 @@
 
 <p> Founded <%= @beer_club.founded %> </p>
 
-<strong> Members </strong>
+<h3> Members </h3>
 
 <ul>
   <% @beer_club.members.each do |member| %>
     <li> <%= link_to member.username, user_path(member.id) %> </li>
   <% end %>
 </ul>
+
+<h3> Outstanding applications </h3>
+
+<ul>
+  <% @memberships.where(beer_club_id: @beer_club.id).where(confirmed: [false, nil]).each do |membership| %>
+    <li> <%= link_to membership.user.username, user_path(membership.user_id) %>
+        <% if @beer_club.members.find_by(id: current_user.id) %>
+          <%= link_to "confirm", toggle_confirmation_membership_path(membership.id), method: :post, class:"btn btn-primary btn-sm"%>
+        <%end %>
+    </li>
+  <% end %>
+</ul>
+
 <br>
 
 <%if current_user %>
 
 
   <%if @beer_club.members.find_by(username: current_user.username).nil? %>
-    <%= form_for(@newmembership) do |f| %>
+    <% if @memberships.where(user_id: current_user.id).where(beer_club_id: @beer_club.id).empty?%>
+      <%= form_for(@newmembership) do |f| %>
       <%= f.hidden_field :beer_club_id %>
       <%= f.submit value: "join the club"%>
+      <%end%>
     <% end %>
   <% else %>
     <%= form_for(@beer_club.memberships.find_by(user_id: current_user.id), method: "delete") do |f| %>

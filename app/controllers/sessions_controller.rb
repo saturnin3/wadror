@@ -26,4 +26,22 @@ class SessionsController < ApplicationController
     #uudelleenohjataan sovellus pääsivulle
     redirect_to :root
   end
+
+
+  def create_oauth
+    username = env["omniauth.auth"].info.nickname
+    provider = env["omniauth.auth"].provider
+    uid = env["omniauth.auth"].uid
+    user = User.where(provider: provider).find_by(uid: uid)
+    if user
+      session[:user_id] = user.id
+      redirect_to user, notice: "Welcome back!"
+    else
+      passu = SecureRandom.hex(10).upcase
+      user= User.create username: username, password: passu, password_confirmation: passu, provider: provider, uid: uid
+      session[:user_id] = user.id
+      redirect_to user, notice:"User was successfully created."
+    end
+  end
+
 end
