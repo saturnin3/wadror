@@ -58,7 +58,7 @@ Favorite brewery: <%=  @user.favorite_brewery.name unless @user.favorite_brewery
   <p><%= freeze_or_reactivate_button(@user)%></p>
 
   <%if @user == current_user or current_user.admin? %>
-    <%=link_to('Edit', edit_user_path(@user) , class:"btn btn-primary btn-sm")%>
+    <%=link_to('Edit', edit_user_path(@user) , class:"btn btn-primary btn-sm") if @user.provider.nil?%>
     <%=link_to('Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger btn-sm" )%>
   <%end%>
 <%end%>
