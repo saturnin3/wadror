@@ -5,5 +5,3 @@
   <%= f.select :beer_club_id, options_from_collection_for_select(@freememberships, :id, :to_s) %>
   <%=f.submit class:"btn btn-primary btn-sm"%>
 <% end %>
-
-<p><%= link_to 'Back', memberships_path %></p>
