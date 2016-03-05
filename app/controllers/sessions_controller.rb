@@ -34,8 +34,12 @@ class SessionsController < ApplicationController
     uid = env["omniauth.auth"].uid
     user = User.where(provider: provider).find_by(uid: uid)
     if user
+      if user.suspended
+        redirect_to :back, notice: "Your account is frozen, please contact admin"
+      else
       session[:user_id] = user.id
       redirect_to user, notice: "Welcome back!"
+    end
     else
       passu = SecureRandom.hex(10).upcase
       while (/(?=.*[A-Z])(?=.*[0-9]){4,}/ =~ passu).nil? do

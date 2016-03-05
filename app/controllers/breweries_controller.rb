@@ -93,6 +93,7 @@ class BreweriesController < ApplicationController
   end
 
   def toggle_activity
+    expire_fragment('brewerylist')
     brewery = Brewery.find(params[:id])
     brewery.update_attribute :active, (not brewery.active)
     #byebug
