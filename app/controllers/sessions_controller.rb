@@ -38,6 +38,9 @@ class SessionsController < ApplicationController
       redirect_to user, notice: "Welcome back!"
     else
       passu = SecureRandom.hex(10).upcase
+      while (/(?=.*[A-Z])(?=.*[0-9]){4,}/ =~ passu).nil? do
+	passu = SecureRandom.hex(10).upcase
+      end
       user= User.create username: username, password: passu, password_confirmation: passu, provider: provider, uid: uid
       session[:user_id] = user.id
       redirect_to user, notice:"User was successfully created."
